@@ -1,0 +1,37 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "migrate": "knex migrate:latest",
+    "rollback": "knex migrate:rollback",
+    "seed": "knex seed:run"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "dotenv": "^8.2.0",
+    "knex": "^0.21.1",
+    "module-alias": "^2.2.2",
+    "papaparse": "^5.2.0",
+    "pg": "^8.2.1",
+    "yup": "^0.29.1"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.21.2"
+  },
+  "_moduleAliases": {
+    "@root": ".",
+    "@db": "db",
+    "@migrations": "db/migrations",
+    "@seek": "db/seek",
+    "@source": "db/sources",
+    "@src": "src",
+    "@constants": "src/constants",
+    "@lib": "src/lib"
+  }
+}
