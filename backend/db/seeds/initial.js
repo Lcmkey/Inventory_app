@@ -46,7 +46,9 @@ exports.seed = async (knex) => {
   const usa = insertedCountries.find((country) => country.code === "US");
 
   us_states.forEach((state) => {
-    state.country_id = usa.id;
+    if (state) {
+      state.country_id = usa.id;
+    }
   });
 
   await knex(tableNames.state).insert(us_states);

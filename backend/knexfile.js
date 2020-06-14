@@ -6,6 +6,7 @@ const password = process.env.POSTGRES_PASSWORD;
 
 module.exports = {
   development: {
+    debug: true,
     client: "pg",
     connection: {
       database,

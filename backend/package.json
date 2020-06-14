@@ -4,25 +4,34 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
     "seed": "knex seed:run"
   },
   "keywords": [],
-  "author": "",
+  "author": "sam.leung",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.0",
+    "compression": "^1.7.4",
     "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "helmet": "^3.23.0",
+    "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.1",
     "module-alias": "^2.2.2",
+    "morgan": "^1.10.0",
+    "objection": "^2.2.0",
     "papaparse": "^5.2.0",
     "pg": "^8.2.1",
     "yup": "^0.29.1"
   },
   "devDependencies": {
-    "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-plugin-import": "^2.21.2"
+    "jest": "^26.0.1",
+    "nodemon": "^2.0.4",
+    "supertest": "^4.0.2"
   },
   "_moduleAliases": {
     "@root": ".",
@@ -31,7 +40,33 @@
     "@seek": "db/seek",
     "@source": "db/sources",
     "@src": "src",
+    "@api": "src/api",
     "@constants": "src/constants",
-    "@lib": "src/lib"
+    "@lib": "src/lib",
+    "@services": "src/services"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testURL": "http://localhost",
+    "moduleNameMapper": {
+      "@root/(.*)": "<rootDir>/$1",
+      "@db/(.*)": "<rootDir>/db/$1",
+      "@migrations/(.*)": "<rootDir>/db/migrations/$1",
+      "@seek/(.*)": "<rootDir>/db/seek/$1",
+      "@source/(.*)": "<rootDir>/db/sources/$1",
+      "@src/(.*)": "<rootDir>/src/$1",
+      "@api": "<rootDir>/src/api",
+      "@constants/(.*)": "<rootDir>/src/constants/$1",
+      "@lib/(.*)": "<rootDir>/src/lib/$1",
+      "@services/(.*)": "<rootDir>/src/services/$1"
+    },
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "jsx",
+      "ts",
+      "tsx",
+      "node"
+    ]
   }
 }
