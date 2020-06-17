@@ -1,6 +1,7 @@
 const express = require("express");
 
 const User = require("./users.model");
+const { LocalChunkSize } = require("papaparse");
 
 const router = express.Router();
 
@@ -18,19 +19,15 @@ router.get("/:id", async (req, res, next) => {
   const { id } = req.params;
 
   try {
-    const user = await User.byId(id).catch((err) => {
+    const user = await User.query({ where: { id } }).fetch(
+      { columns: userFields },
+      { require: true },
+    ).catch((err) => {
+      // const error = new Error("Not Found");
+      // res.status(404);
+
       throw err;
     });
-
-    // const user = await User.query({ where: { id } }).fetch(
-    //   { columns: userFields },
-    //   { require: true },
-    // ).catch((err) => {
-    //   // const error = new Error("Not Found");
-    //   // res.status(404);
-
-    //   throw err;
-    // });
 
     res.json(user);
   } catch (error) {

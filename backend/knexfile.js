@@ -7,10 +7,6 @@ const {
   POSTGRES_PASSWORD,
 } = require("@config/envConfig");
 
-console.log(POSTGRES_DB);
-console.log(POSTGRES_USER);
-console.log(POSTGRES_PASSWORD);
-
 const database = POSTGRES_DB;
 const database_test = POSTGRES_TEST_DB;
 const user = POSTGRES_USER;
