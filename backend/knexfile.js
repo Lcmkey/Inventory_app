@@ -20,4 +20,19 @@ module.exports = {
       directory: "./db/seeds",
     },
   },
+  test: {
+    client: "pg",
+    connection: {
+      // TODO: update postgres container to create test db on start
+      database,
+      user,
+      password,
+    },
+    migrations: {
+      directory: "./db/migrations",
+    },
+    seeds: {
+      directory: "./db/seeds",
+    },
+  },
 };
