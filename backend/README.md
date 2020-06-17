@@ -22,6 +22,14 @@ POSTGRES_TEST_DB=inventory_app_test
 
     $ make seeks
 
+### __Install package__
+
+    $ npm i
+
+### __Run app__
+
+    $ make dev
+
 # Model a SQL Database
 
 Every Record will have:
