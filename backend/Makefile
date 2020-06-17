@@ -10,8 +10,11 @@ migrate:
 rollback:
 	npm run rollback
 
-seek:
+seed:
 	npm run seed
+
+test:
+	npm run test
 
 test-setup:
 	jest ./src/test/setup.tests.js

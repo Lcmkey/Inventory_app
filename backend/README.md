@@ -1,9 +1,15 @@
 # .env
 
 ```properties
+# App Info
+PORT=5000
+JWT_SECRET=your-secret
+
+# DB Config
 POSTGRES_USER=admin
 POSTGRES_PASSWORD=your-password
 POSTGRES_DB=inventory_app
+POSTGRES_TEST_DB=inventory_app_test
 ```
 
 # How to Run

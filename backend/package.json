@@ -45,29 +45,5 @@
     "@constants": "src/constants",
     "@lib": "src/lib",
     "@services": "src/services"
-  },
-  "jest": {
-    "testEnvironment": "node",
-    "testURL": "http://localhost",
-    "moduleNameMapper": {
-      "@root/(.*)": "<rootDir>/$1",
-      "@db/(.*)": "<rootDir>/db/$1",
-      "@migrations/(.*)": "<rootDir>/db/migrations/$1",
-      "@seek/(.*)": "<rootDir>/db/seek/$1",
-      "@source/(.*)": "<rootDir>/db/sources/$1",
-      "@src/(.*)": "<rootDir>/src/$1",
-      "@api": "<rootDir>/src/api",
-      "@constants/(.*)": "<rootDir>/src/constants/$1",
-      "@lib/(.*)": "<rootDir>/src/lib/$1",
-      "@services/(.*)": "<rootDir>/src/services/$1"
-    },
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "jsx",
-      "ts",
-      "tsx",
-      "node"
-    ]
   }
 }
