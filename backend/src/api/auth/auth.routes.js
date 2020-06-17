@@ -102,7 +102,7 @@ router.post("/signin", async (req, res, next) => {
       throw error;
     }
 
-    const validPassword = await bcrypt.compare(password, user.attributes.password);
+    const validPassword = await bcrypt.compare(password, user.get("password"));
 
     if (!validPassword) {
       const error = new Error(errorMessages.invalidLogin);
@@ -110,6 +110,9 @@ router.post("/signin", async (req, res, next) => {
 
       throw error;
     }
+
+    delete user.attributes.password;
+    await user.set("last_login", new Date()).save();
 
     const payload = {
       id: user.id,
