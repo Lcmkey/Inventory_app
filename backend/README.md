@@ -107,4 +107,13 @@ Deleted At - datetime
 
 ### __Create user__
 
-    $ curl -X POST -H "Content-Type: application/json" -d '{"email": "sam.leung@test.com", "name": "sam.leung", "password": "12345678"}' http://localhost:5000/api/v1/users | jq
+    $ curl -X POST -H "Content-Type: application/json" -d '{"email": "sam.leung02@test.com", "name": "sam.leung", "password": "Ab_12345678"}' http://localhost:5000/api/v1/auth/signup | jq
+
+
+### __Get all state__
+
+    $ curl http://localhost:5000/api/v1/states | jq
+
+### __Get state by id__
+
+    $ curl http://localhost:5000/api/v1/states/1 | jq

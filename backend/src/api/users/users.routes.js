@@ -29,30 +29,4 @@ router.get("/:id", async (req, res) => {
   res.json(user);
 });
 
-router.post("/", async (req, res) => {
-  const user = req.body;
-  console.log(user.password.toString("hex"));
-
-  const saltRounds = 12;
-  const salt = bcrypt.genSaltSync(saltRounds);
-  user.password = bcrypt.hashSync(user.password, salt);
-
-  const userList = await User.query().select(userFields).where(
-    "email",
-    user.email,
-  );
-
-  if (userList.length) {
-    return res.status(500).json("Email Duplicated");
-  }
-
-  try {
-    const response = await User.query().insert(user);
-
-    return res.status(200).json(response);
-  } catch (err) {
-    console.log(err);
-  }
-});
-
 module.exports = router;

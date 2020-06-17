@@ -29,39 +29,52 @@ const errorMessages = {
 
 router.post("/signup", async (req, res, next) => {
   const { name, email, password } = req.body;
+
   try {
     const createUser = {
       name,
       email,
       password,
     };
+    
+    
     await schema.validate(createUser, {
       abortEarly: false,
     });
+
     const existingUser = await User.query().where({ email }).first();
+
     if (existingUser) {
       const error = new Error(errorMessages.emailInUse);
       res.status(403);
+
       throw error;
     }
+
     // TODO: get rounds from config
-    const hashedPassword = await bcrypt.hash(password, 12);
+    const saltRounds = 12;
+    const salt = bcrypt.genSaltSync(saltRounds);
+    const hashedPassword = await bcrypt.hashSync(password, salt);
     const insertedUser = await User.query().insert({
       name,
       email,
       password: hashedPassword,
     });
+
     delete insertedUser.password;
+
     const payload = {
       id: insertedUser.id,
       name,
       email,
     };
     const token = await jwt.sign(payload);
+
     res.json({
       user: payload,
       token,
     });
+
   } catch (error) {
     next(error);
   }
@@ -69,6 +82,7 @@ router.post("/signup", async (req, res, next) => {
 
 router.post("/signin", async (req, res, next) => {
   const { email, password } = req.body;
+
   try {
     await schema.validate(
       {
@@ -78,25 +92,33 @@ router.post("/signin", async (req, res, next) => {
       },
       {
         abortEarly: false,
-      }
+      },
     );
+
     const user = await User.query().where({ email }).first();
+
     if (!user) {
       const error = new Error(errorMessages.invalidLogin);
       res.status(403);
+
       throw error;
     }
+
     const validPassword = await bcrypt.compare(password, user.password);
+
     if (!validPassword) {
       const error = new Error(errorMessages.invalidLogin);
       res.status(403);
+      
       throw error;
     }
+
     const payload = {
       id: user.id,
       name: user.name,
       email,
     };
+    
     const token = await jwt.sign(payload);
     res.json({
       user: payload,
