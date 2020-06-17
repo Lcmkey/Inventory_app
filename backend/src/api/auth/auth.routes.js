@@ -1,26 +1,12 @@
 const express = require("express");
-const yup = require("yup");
 // TODO: extract to general hashing util
 const bcrypt = require("bcrypt");
 
 const jwt = require("@lib/jwt");
 const User = require("@api/users/users.model");
+const { signupSchema, signinSchema } = require("./auth.schema");
 
 const router = express.Router();
-
-const schema = yup.object().shape({
-  name: yup.string().trim().min(2).required(),
-  email: yup.string().trim().email().required(),
-  password: yup
-    .string()
-    .min(8)
-    .max(200)
-    .matches(/[^A-Za-z0-9]/, "password must contain a special character")
-    .matches(/[A-Z]/, "password must contain an uppercase letter")
-    .matches(/[a-z]/, "password must contain a lowercase letter")
-    .matches(/[0-9]/, "password must contain a number")
-    .required(),
-});
 
 const errorMessages = {
   invalidLogin: "Invalid login.",
@@ -36,12 +22,18 @@ router.post("/signup", async (req, res, next) => {
       email,
       password,
     };
-    
-    await schema.validate(createUser, {
+
+    await signupSchema.validate(createUser, {
       abortEarly: false,
     });
 
-    const existingUser = await User.query().where({ email }).first();
+    const existingUser = await User.query({ where: { email } }).fetch().catch(
+      (err) => {
+        if (err.message !== "EmptyResponse") {
+          return next(err);
+        }
+      },
+    );
 
     if (existingUser) {
       const error = new Error(errorMessages.emailInUse);
@@ -54,12 +46,14 @@ router.post("/signup", async (req, res, next) => {
     const saltRounds = 12;
     const salt = bcrypt.genSaltSync(saltRounds);
     const hashedPassword = await bcrypt.hashSync(password, salt);
-    const insertedUser = await User.query().insert({
+
+    const insertedUser = await User.forge({
       name,
       email,
       password: hashedPassword,
-    });
+    }).save();
 
+    // Delete the user password
     delete insertedUser.password;
 
     const payload = {
@@ -67,6 +61,7 @@ router.post("/signup", async (req, res, next) => {
       name,
       email,
     };
+
     const token = await jwt.sign(payload);
 
     res.json({
@@ -82,9 +77,8 @@ router.post("/signin", async (req, res, next) => {
   const { email, password } = req.body;
 
   try {
-    await schema.validate(
+    await signinSchema.validate(
       {
-        name: "DocD",
         email,
         password,
       },
@@ -93,7 +87,13 @@ router.post("/signin", async (req, res, next) => {
       },
     );
 
-    const user = await User.query().where({ email }).first();
+    const user = await User.query({ where: { email } }).fetch().catch(
+      (err) => {
+        if (err.message !== "EmptyResponse") {
+          return next(err);
+        }
+      },
+    );
 
     if (!user) {
       const error = new Error(errorMessages.invalidLogin);
@@ -102,7 +102,7 @@ router.post("/signin", async (req, res, next) => {
       throw error;
     }
 
-    const validPassword = await bcrypt.compare(password, user.password);
+    const validPassword = await bcrypt.compare(password, user.attributes.password);
 
     if (!validPassword) {
       const error = new Error(errorMessages.invalidLogin);

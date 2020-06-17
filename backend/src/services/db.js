@@ -1,5 +1,5 @@
 const knex = require("knex");
-const { Model } = require("objection");
+const bookshelf = require("bookshelf");
 
 const knexConfig = require("@root/knexfile");
 
@@ -8,6 +8,4 @@ const connectionConfig = knexConfig[environment];
 
 const connection = knex(connectionConfig);
 
-Model.knex(connection);
-
-module.exports = connection;
+module.exports = bookshelf(connection);

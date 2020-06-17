@@ -1,16 +1,9 @@
-const { Model } = require("objection");
+const bookshelf = require("@services/db");
 
 const tableNames = require("@constants/tableNames");
-const schema = require("./users.schema.json");
 
-class User extends Model {
-  static get tableName() {
-    return tableNames.user;
-  }
-
-  static get jsonSchema() {
-    return schema;
-  }
-}
+const User = bookshelf.model(tableNames.user, {
+  tableName: tableNames.user,
+});
 
 module.exports = User;

@@ -1,17 +1,22 @@
-const db = require("@services/db");
-
+const State = require("./states.model");
 const tableNames = require("@constants/tableNames");
 
 const fields = ["id", "name", "code"];
 
-const findAll = () => {
+const findAll = async () => {
   // TODO: filter by country
   // TODO: join to country table
-  return db(tableNames.state).select(fields);
+  const result = await State.fetchAll({ columns: fields });
+
+  return result;
 };
 
 const getById = async (id) => {
-  return db(tableNames.state).select(fields).where({ id }).first();
+  const result = await State.query({ where: { id } }).fetch(
+    { columns: fields },
+  );
+
+  return result;
 };
 
 module.exports = {
