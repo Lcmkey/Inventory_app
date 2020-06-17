@@ -87,6 +87,7 @@ module.exports = {
     "@config/(./*)": "<rootDir>/src/config/$1",
     "@constants/(.*)": "<rootDir>/src/constants/$1",
     "@lib/(.*)": "<rootDir>/src/lib/$1",
+    "@middleware/(./*)": "src/middleware/$1",
     "@services/(.*)": "<rootDir>/src/services/$1"
   },
 

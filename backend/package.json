@@ -45,6 +45,7 @@
     "@config": "src/config",
     "@constants": "src/constants",
     "@lib": "src/lib",
+    "@middleware": "src/middleware",
     "@services": "src/services"
   }
 }
