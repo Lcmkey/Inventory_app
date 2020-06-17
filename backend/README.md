@@ -89,3 +89,22 @@ Deleted At - datetime
 ### init
 
     $ npx eslint --init
+
+
+# [JsonSchma][JsonSchma]
+
+[JsonSchma]:https://jsonschema.net/home "JsonSchma"
+
+# Test
+
+### __Get all users__
+
+    $ curl http://localhost:5000/api/v1/users | jq
+
+### __Get user by id__
+
+    $ curl http://localhost:5000/api/v1/users/1 | jq
+
+### __Create user__
+
+    $ curl -X POST -H "Content-Type: application/json" -d '{"email": "sam.leung@test.com", "name": "sam.leung", "password": "12345678"}' http://localhost:5000/api/v1/users | jq
