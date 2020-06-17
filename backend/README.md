@@ -14,6 +14,22 @@ POSTGRES_TEST_DB=inventory_app_test
 
 # How to Run
 
+### __Startup the Docker Services__
+
+    $ docker-compose up -d
+
+### __Check service that is Running__
+
+    $ docker ps
+
+output:
+```
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
+aec913f8608b        adminer             "entrypoint.sh docke…"   2 hours ago         Up 2 hours          0.0.0.0:8080->8080/tcp   backend_adminer_1
+0b97cad1d105        postgres            "docker-entrypoint.s…"   2 hours ago         Up 2 hours          0.0.0.0:5432->5432/tcp   backend_db_1
+
+```
+
 ### **Migrate database**
 
     $ make migrate
@@ -27,7 +43,6 @@ POSTGRES_TEST_DB=inventory_app_test
     $ npm i
 
 ### __Run app__
-
     $ make dev
 
 # Model a SQL Database
