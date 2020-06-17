@@ -18,15 +18,19 @@ router.get("/:id", async (req, res, next) => {
   const { id } = req.params;
 
   try {
-    const user = await User.query({ where: { id } }).fetch(
-      { columns: userFields },
-      { require: true },
-    ).catch((err) => {
-      // const error = new Error("Not Found");
-      // res.status(404);
-
+    const user = await User.byId(id).catch((err) => {
       throw err;
     });
+
+    // const user = await User.query({ where: { id } }).fetch(
+    //   { columns: userFields },
+    //   { require: true },
+    // ).catch((err) => {
+    //   // const error = new Error("Not Found");
+    //   // res.status(404);
+
+    //   throw err;
+    // });
 
     res.json(user);
   } catch (error) {
