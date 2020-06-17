@@ -1,3 +1,5 @@
+require("module-alias/register");
+
 const {
   POSTGRES_DB,
   POSTGRES_TEST_DB,
