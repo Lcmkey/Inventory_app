@@ -1,9 +1,14 @@
-require("dotenv").config();
+const {
+  POSTGRES_DB,
+  POSTGRES_TEST_DB,
+  POSTGRES_USER,
+  POSTGRES_PASSWORD,
+} = require("@config/envConfig");
 
-const database = process.env.POSTGRES_DB;
-const database_test = process.env.POSTGRES_TEST_DB;
-const user = process.env.POSTGRES_USER;
-const password = process.env.POSTGRES_PASSWORD;
+const database = POSTGRES_DB;
+const database_test = POSTGRES_TEST_DB;
+const user = POSTGRES_USER;
+const password = POSTGRES_PASSWORD;
 
 module.exports = {
   development: {

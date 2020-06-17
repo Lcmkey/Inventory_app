@@ -42,6 +42,7 @@
     "@source": "db/sources",
     "@src": "src",
     "@api": "src/api",
+    "@config": "src/config",
     "@constants": "src/constants",
     "@lib": "src/lib",
     "@services": "src/services"

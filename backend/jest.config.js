@@ -84,6 +84,7 @@ module.exports = {
     "@source/(.*)": "<rootDir>/db/sources/$1",
     "@src/(.*)": "<rootDir>/src/$1",
     "@api": "<rootDir>/src/api",
+    "@config/(./*)": "<rootDir>/src/config/$1",
     "@constants/(.*)": "<rootDir>/src/constants/$1",
     "@lib/(.*)": "<rootDir>/src/lib/$1",
     "@services/(.*)": "<rootDir>/src/services/$1"

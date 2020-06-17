@@ -37,7 +37,6 @@ router.post("/signup", async (req, res, next) => {
       password,
     };
     
-    
     await schema.validate(createUser, {
       abortEarly: false,
     });
@@ -74,7 +73,6 @@ router.post("/signup", async (req, res, next) => {
       user: payload,
       token,
     });
-
   } catch (error) {
     next(error);
   }
@@ -109,7 +107,7 @@ router.post("/signin", async (req, res, next) => {
     if (!validPassword) {
       const error = new Error(errorMessages.invalidLogin);
       res.status(403);
-      
+
       throw error;
     }
 
@@ -118,7 +116,7 @@ router.post("/signin", async (req, res, next) => {
       name: user.name,
       email,
     };
-    
+
     const token = await jwt.sign(payload);
     res.json({
       user: payload,
