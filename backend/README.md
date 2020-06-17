@@ -117,3 +117,7 @@ Deleted At - datetime
 ### __Get state by id__
 
     $ curl http://localhost:5000/api/v1/states/1 | jq
+
+### __Sigin__
+
+    $ curl -X POST -H "Content-Type: application/json" -d '{"email": "sam.leung02@test.com", "password": "Ab_12345678"}' http://localhost:5000/api/v1/auth/signin | jq
